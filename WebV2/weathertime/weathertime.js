@@ -18,7 +18,7 @@ function updateTime() {
     if (dayNameEl) dayNameEl.textContent = days[now.getDay()];
     if (fullDateEl) fullDateEl.textContent = `${months[now.getMonth()]} ${now.getDate()}`;
 
-    console.log("[Time] updateTime finished", { hour: now.getHours(), min: now.getMinutes() });
+    // console.log("[Time] updateTime finished", { hour: now.getHours(), min: now.getMinutes() });
 }
 
 
@@ -59,7 +59,7 @@ async function fetchTodayEvent() {
 }
 
 async function fetchWeather() {
-    console.log("[Weather] fetchWeather start");
+    // console.log("[Weather] fetchWeather start");
 
     // ここで window.echoConfig と window.config の不一致を確認
     const cfg = window.echoConfig || window.config || { city: "Tokyo" };
