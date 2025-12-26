@@ -1,0 +1,68 @@
+        /* ウィジェットを並べるグリッド */
+        .widget-grid-section {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 50px 20px;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            align-content: start;
+        }
+
+        /* カードの初期状態（GSAPで動かすために最初は下げて消しておく） */
+        .widget-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 25px;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        /* 新しく入ってくる電車の動き */
+        .train-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            transition: all 0.5s ease; /* 変化を滑らかに */
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .widget-card:hover { transform: translateY(-5px); }
+        .widget-card h3 { margin-top: 0; font-size: 0.9rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* カレンダーのグリッド配置を確定 */
+        /* カレンダーグリッド */
+        #cal-days {
+            display: grid !important;
+            grid-template-columns: repeat(7, 1fr) !important;
+            gap: 4px;
+        }
+        .cal-cell {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        .cal-head { font-weight: 800; opacity: 0.5; font-size: 0.7rem; cursor: default; }
+        .cal-date.today { background: var(--accent); color: black; font-weight: 900; }
+        .cal-date.selected { border: 1px solid var(--accent); }
+        .has-event::after {
+            content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+            width: 4px; height: 4px; background: var(--accent); border-radius: 50%;
+        }
