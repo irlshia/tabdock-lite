@@ -16,13 +16,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
-<script src="save/save.js"></script>
-<script src="gsap/gsap.js"></script>
-<script src="news/news.js"></script>
-<script src="settings/settings.js"></script>
-<script src="weathertime/weathertime.js"></script>
-<script src="widgets/train.js"></script>
-<script src="widgets/calendar.js"></script>
 
 <body>
 
@@ -132,6 +125,7 @@
 
                 <main class="settings-main">
                     <div class="close-modal" onclick="toggleSettings()"><i class="ri-close-line"></i></div>
+
                     <div id="tab-general" class="tab-content active">
                         <h3>プロフィール</h3>
                         <div class="setting-group">
@@ -171,6 +165,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div id="tab-widget" class="tab-content">
                         <div class="setting-group">
                             <label>駅名</label>
@@ -181,74 +176,101 @@
                             <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="time" id="input-train-time"
                                     style="flex: 2; padding: 12px; font-size: 1.2rem; border-radius: 8px; background: #222; color: #fff; border: 1px solid #444;">
-
                                 <select id="input-train-type"
                                     style="flex: 1; padding: 12px; font-size: 1rem; border-radius: 8px; background: #222; color: #fff; border: 1px solid #444;">
                                     <option value="普通">普通</option>
                                     <option value="急行">急行</option>
                                     <option value="特急">特急</option>
                                 </select>
-
                                 <button onclick="addTrainFromTouch()"
-                                    style="flex: 1; background: var(--accent); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; min-height: 48px;">
-                                    追加
-                                </button>
+                                    style="flex: 1; background: var(--accent); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; min-height: 48px;">追加</button>
                             </div>
                             <div id="touch-train-list"
                                 style="max-height: 150px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 5px;">
                             </div>
                         </div>
-                        <div id="tab-info" class="tab-content">
+                    </div>
+
+                    <div id="tab-info" class="tab-content">
+                        <h3>システム情報</h3>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                             <div
-                                style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid #222;">
-                                <label
-                                    style="font-size: 0.6rem; color: #555; display: block; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">Integrated
-                                    Tech-Stack</label>
-                                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                                    <span class="tech-tag">HTML5/CSS3</span>
-                                    <span class="tech-tag">Vanilla JS ES6+</span>
-                                    <span class="tech-tag">Open-Meteo API</span>
-                                    <span class="tech-tag">Nominatim</span>
-                                    <span class="tech-tag">GSAP Anim</span>
-                                    <span class="tech-tag">Remix Icon</span>
-                                </div>
+                                style="background: #00ff88; color: #000; padding: 2px 10px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">
+                                SYSTEM V1.0.5</div>
+                            <div style="font-size: 0.7rem; color: #555; font-family: monospace;">STABLE_BUILD_2025</div>
+                        </div>
+                        <div
+                            style="background: linear-gradient(135deg, #1e1e1e, #111); padding: 15px; border-radius: 8px; border: 1px solid #333; margin-bottom: 15px; position: relative; overflow: hidden;">
+                            <div
+                                style="position: absolute; right: -10px; top: -10px; font-size: 4rem; color: rgba(255,255,255,0.03); font-weight: 900;">
+                                AI</div>
+                            <label style="font-size: 0.6rem; color: #00ff88; letter-spacing: 1px;">CORE ENGINE</label>
+                            <div style="font-size: 1.2rem; font-weight: 600; color: #fff;">Gemini 3 Flash</div>
+                            <div style="font-size: 0.7rem; color: #888;">Next-gen Multimodal Logic Engine</div>
+                        </div>
+                        <div class="setting-group"
+                            style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid #222; margin-bottom: 10px;">
+                            <p style="font-size: 0.9rem; margin-bottom: 8px;">稼働時間: <span id="sys-uptime"
+                                    style="color: var(--accent);">--:--:--</span></p>
+                            <p style="font-size: 0.9rem; margin-bottom: 8px;">解像度: <span id="sys-res">-- x --</span></p>
+                            <p style="font-size: 0.8rem; opacity: 0.7;">UA: <span id="sys-ua"
+                                    style="word-break: break-all;">Loading...</span></p>
+                        </div>
+
+                        <div
+                            style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid #222;">
+                            <label
+                                style="font-size: 0.6rem; color: #555; display: block; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase;">Integrated
+                                Tech-Stack</label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                                <span class="tech-tag">HTML5/CSS3</span>
+                                <span class="tech-tag">Vanilla JS ES6+</span>
+                                <span class="tech-tag">Open-Meteo API</span>
+                                <span class="tech-tag">Nominatim</span>
+                                <span class="tech-tag">GSAP Anim</span>
+                                <span class="tech-tag">Remix Icon</span>
                             </div>
                         </div>
+                    </div>
                 </main>
-            </div>
-        </div>
-    </div>
+                <script src="save/save.js"></script>
+                <script src="gsap/gsap.js"></script>
+                <script src="news/news.js"></script>
+                <script src="settings/settings.js"></script>
+                <script src="weathertime/weathertime.js"></script>
+                <script src="widgets/train.js"></script>
+                <script src="widgets/calendar.js"></script>
 
+                <script>
+                    // --- 初期化処理 ---
+                    window.addEventListener('load', () => {
+                        // 1. まずデータを1回だけ読み込む
+                        loadSettings();
 
-    <script>
-        // --- 初期化処理 ---
-        window.addEventListener('load', () => {
-            // 1. まずデータを1回だけ読み込む
-            loadSettings();
-
-            // 2. 読み込んだデータを使って各機能を動かす
-            updateTime();
-            setInterval(updateTime, 1000);
-            fetchTodayEvent();
-            fetchWeather();
-            if (typeof loadTrainData === 'function') loadTrainData();
-            if (typeof initAnimations === 'function') initAnimations();
-
-            // 3. 入力監視 (change イベントにすることで、入力が終わったタイミングで保存し、負荷を下げます)
-            const targetIds = ['set-username', 'set-city', 'set-rss', 'set-station'];
-            targetIds.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('change', () => {
-                        autoSave();
-                        // 変更を反映させたいものだけ呼ぶ
+                        // 2. 読み込んだデータを使って各機能を動かす
+                        updateTime();
+                        setInterval(updateTime, 1000);
                         fetchTodayEvent();
                         fetchWeather();
+                        if (typeof loadTrainData === 'function') loadTrainData();
+                        if (typeof initAnimations === 'function') initAnimations();
+
+                        // 3. 入力監視 (change イベントにすることで、入力が終わったタイミングで保存し、負荷を下げます)
+                        const targetIds = ['set-username', 'set-city', 'set-rss', 'set-station'];
+                        targetIds.forEach(id => {
+                            const el = document.getElementById(id);
+                            if (el) {
+                                el.addEventListener('change', () => {
+                                    autoSave();
+                                    // 変更を反映させたいものだけ呼ぶ
+                                    fetchTodayEvent();
+                                    fetchWeather();
+                                });
+                            }
+                        });
                     });
-                }
-            });
-        });
-    </script>
+                </script>
 </body>
 
 </html>
