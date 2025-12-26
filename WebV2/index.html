@@ -243,6 +243,7 @@
                 <script src="widgets/calendar.js"></script>
 
                 <script>
+                    document.addEventListener('DOMContentLoaded', setupSearch);
                     // --- 初期化処理 ---
                     window.addEventListener('load', () => {
                         // 1. まずデータを1回だけ読み込む
@@ -270,6 +271,21 @@
                             }
                         });
                     });
+                    function setupSearch() {
+                        const searchInput = document.getElementById('search-input');
+                        if (!searchInput) return;
+
+                        searchInput.addEventListener('keypress', (e) => {
+                            if (e.key === 'Enter') {
+                                const query = searchInput.value.trim();
+                                if (query) {
+                                    // 新しいタブでGoogle検索を開く
+                                    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                                    searchInput.value = ""; // 入力欄をクリア
+                                }
+                            }
+                        });
+                    }
                 </script>
 </body>
 
